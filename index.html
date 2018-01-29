@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="./public/css/bootstrap.min.css">
+  </head>
+  <body>
+    <h1>Hello World!</h1>
+    <button id="b1" type="button">Open Window</button>
+    <button id="b2" type="button">Close Window</button>
+  </body>
+  <script src="./public/js/socket.io.slim.js"></script>
+  <script type="text/javascript">
+  var socket = io.connect('http://localhost:8080');
+  socket.emit("add-user", {"username": 10});
+  var $ = require('jQuery');
+  const remote = require('electron').remote
+  const main = remote.require('./main.js')
+  $('#b1').click(function(event) {
+    main.openWindow();
+    console.log('click');
+  });
+  $('#b2').click(function(event) {
+    //main.closeWindow();
+    console.log('click');
+  });
+  socket.on("add-message", function(data){
+    console.log(data.content);
+    switch (data.content) {
+      case 'hide':
+        main.hideBlockScreen();
+        break;
+      case 'show':
+        main.showBlockScreen();
+        break;
+      default:
+        console.log('accion no definida');
+    }
+  });
+  </script>
+</html>

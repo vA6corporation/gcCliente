@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="./public/css/bootstrap.min.css">
+  </head>
+  <body>
+    <style media="screen">
+      p{
+        display: inline-block;
+        line-height: 0em;
+        padding: 0px;
+      }
+      label{
+        line-height: 0em;
+        padding: 0px;
+      }
+    </style>
+    <strong>
+      <div style="padding: 5px 10px" class="reloj">
+        <div class="">
+          <label>Inicio</label>
+          <p id="inicio"></p>
+        </div>
+        <div class="">
+          <label>Tiempo </label>
+          <p id="horas"></p>
+          <p>:</p>
+          <p id="minutos"></p>
+          <p>:</p>
+          <div style="display: inline-block" class="caja">
+            <p id="segundos"></p>
+            <p id="ampm" class="ampm"></p>
+          </div>
+        </div>
+        <button id="hide" type="button">Ocultar</button>
+      </div>
+    </strong>
+  </body>
+  <script type="text/javascript">
+  const remote = require('electron').remote
+  $ = require('jquery');
+  $(document).ready(function() {
+    console.log('estamos listos');
+    var fecha = new Date(),
+        horas = fecha.getHours(),
+        minutos = fecha.getMinutes(),
+        ampm;
+        if (horas >= 12) {
+          horas = horas - 12;
+          ampm = 'PM';
+        } else {
+          ampm = 'AM';
+        }
+
+        if (horas == 0) {
+          horas = 12;
+        }
+        if (minutos < 10) {minutos = '0' + minutos};
+    $('#inicio').html(horas+':'+minutos+' '+ampm);
+  });
+  (function(){
+    var horas = 0, minutos = 0, segundos = 0;
+    var actualizarHora = function(){
+      var fecha = new Date(),
+          horas = fecha.getHours(),
+          minutos = fecha.getMinutes(),
+          segundos = fecha.getSeconds(),
+          ampm;
+      if (horas >= 12) {
+        horas = horas - 12;
+        ampm = 'PM';
+      } else {
+        ampm = 'AM';
+      }
+
+      if (horas == 0) {
+        horas = 12;
+      }
+      if (minutos < 10) {minutos = '0' + minutos};
+      if (segundos < 10) {segundos = '0' + segundos};
+
+      $('#ampm').html(ampm);
+      $('#horas').html(horas);
+      $('#minutos').html(minutos);
+      $('#segundos').html(segundos);
+    };
+    var contarHora = function(){
+      if (minutos >= 60) {horas++; minutos = 0};
+      if (segundos >= 60) {minutos++; segundos = 0};
+      segundos++;
+      $('#horas').html(horas);
+      $('#minutos').html(minutos);
+      $('#segundos').html(segundos);
+    };
+    contarHora();
+    var intervalo = setInterval(contarHora, 1000);
+  })();
+  $('#hide').click(function(event) {
+    var window = remote.getCurrentWindow();
+    window.hide();
+  });
+  </script>
+</html>
