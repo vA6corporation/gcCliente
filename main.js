@@ -10,8 +10,8 @@ let win;
 let reloj;
 
 function createWindow(){
-  //win = new BrowserWindow({alwaysOnTop: true, fullscreen: true})
-  win = new BrowserWindow()
+  win = new BrowserWindow({alwaysOnTop: true, fullscreen: true})
+  //win = new BrowserWindow()
   //win.setFullScreen(true);
   win.setMenu(null)
   win.loadURL(url.format({

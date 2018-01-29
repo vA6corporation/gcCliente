@@ -12,7 +12,7 @@
   </body>
   <script src="./public/js/socket.io.slim.js"></script>
   <script type="text/javascript">
-  var socket = io.connect('http://localhost:8080');
+  var socket = io.connect('http://192.168.1.10:8080');
   socket.emit("add-user", {"username": 10});
   var $ = require('jQuery');
   const remote = require('electron').remote
@@ -25,14 +25,25 @@
     //main.closeWindow();
     console.log('click');
   });
+  var intervalo;
+  var block = function(estado){
+    if (estado) {
+      intervalo = setInterval(function(){main.showBlockScreen()}, 1000);
+    } else {
+      clearInterval(intervalo);
+    }
+  };
+  block(true);
   socket.on("add-message", function(data){
     console.log(data.content);
     switch (data.content) {
       case 'hide':
+        block(false);
         main.hideBlockScreen();
         break;
       case 'show':
-        main.showBlockScreen();
+        block(true);
+        //main.showBlockScreen();
         break;
       default:
         console.log('accion no definida');
