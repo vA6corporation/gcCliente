@@ -6,9 +6,21 @@
     <link rel="stylesheet" href="./public/css/bootstrap.min.css">
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <button id="b1" type="button">Open Window</button>
-    <button id="b2" type="button">Close Window</button>
+    <div class="" style="position:absolute; padding-left:30px">
+      <strong class="display-1">18</strong>
+    </div>
+    <div class="container">
+      <table style="height:100vh; width:100%;">
+        <td class="align-middle" style="text-align: center;">
+          <form class="" action="index.html" method="post">
+            <div class="form-group">
+              <strong class="display-1" style="">Terminal Bloqueado!...</strong>
+            </div>
+            <button id="activar" class="btn btn-info btn-lg" type="button" name="button">Activar</button>
+          </form>
+        </td>
+      </table>
+    </div>
   </body>
   <script src="./public/js/socket.io.slim.js"></script>
   <script type="text/javascript">
@@ -17,8 +29,10 @@
   var $ = require('jQuery');
   const remote = require('electron').remote
   const main = remote.require('./main.js')
-  $('#b1').click(function(event) {
-    main.openWindow();
+  $('#activar').click(function(event) {
+    block(false);
+    main.hideBlockScreen();
+    main.controlar();
     console.log('click');
   });
   $('#b2').click(function(event) {

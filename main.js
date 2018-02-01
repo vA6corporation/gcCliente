@@ -20,7 +20,7 @@ function createWindow(){
     slashes: true
   }))
 
-  reloj = new BrowserWindow({width:170, height:105, resizable: false, x: 0, y: 0, frame:false, show: false})
+  reloj = new BrowserWindow({width:170, height:105, resizable: false, x: 0, y: 0, frame:false, show: false, alwaysOnTop: true, icon:'./clock-icon.png'})
   reloj.setMenu(null)
   reloj.loadURL(url.format({
     pathname: path.join(__dirname, 'reloj.html'),
@@ -35,7 +35,7 @@ function createWindow(){
   });
 };
 
-exports.openWindow = function(){
+exports.controlar = function(){
   reloj.show();
   //reloj.webContents.openDevTools()
 };
