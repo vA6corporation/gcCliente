@@ -24,7 +24,7 @@
   </body>
   <script src="./public/js/socket.io.slim.js"></script>
   <script type="text/javascript">
-  var socket = io.connect('http://192.168.1.10:8080');
+  var socket = io.connect('http://192.168.1.18:8080');
   socket.emit("add-user", {"username": 10});
   var $ = require('jQuery');
   const remote = require('electron').remote

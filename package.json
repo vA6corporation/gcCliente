@@ -10,6 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "electron": "^1.7.10",
-    "jquery": "^3.2.1"
+    "electron-shutdown-command": "0.0.8"
   }
 }

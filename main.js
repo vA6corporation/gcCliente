@@ -1,7 +1,7 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
-var $ = require('jQuery')
+const shutdown = require('electron-shutdown-command');
 
 // Mantén una referencia global del objeto ventana, si no lo haces, la ventana se
 // cerrará automáticamente cuando el objeto de JavaScript sea basura colleccionada.
@@ -14,11 +14,7 @@ function createWindow(){
   //win = new BrowserWindow()
   //win.setFullScreen(true);
   win.setMenu(null)
-  win.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file',
-    slashes: true
-  }))
+  win.loadURL('http://192.168.1.18:8080/block')
 
   reloj = new BrowserWindow({width:170, height:105, resizable: false, x: 0, y: 0, frame:false, show: false, alwaysOnTop: true, icon:'./clock-icon.png'})
   reloj.setMenu(null)
@@ -27,7 +23,6 @@ function createWindow(){
     protocol: 'file',
     slashes: true
   }))
-  // win.loadURL('http://localhost:8080/block')
   win.webContents.openDevTools()
 
   win.on('close', function(e){
@@ -50,6 +45,10 @@ exports.hideBlockScreen = function(){
 
 exports.showBlockScreen = function(){
   win.show();
+};
+
+exports.shutdown = function(){
+  shutdown.shutdown();
 };
 
 app.on('ready', createWindow);
