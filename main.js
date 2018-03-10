@@ -1,41 +1,32 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
-const shutdown = require('electron-shutdown-command');
+const shutdown = require('electron-shutdown-command')
 
-// Mantén una referencia global del objeto ventana, si no lo haces, la ventana se
-// cerrará automáticamente cuando el objeto de JavaScript sea basura colleccionada.
 let willQuitApp = false;
 let win;
 let reloj;
 
 function createWindow(){
   win = new BrowserWindow({alwaysOnTop: true, fullscreen: true})
-  //win = new BrowserWindow()
-  //win.setFullScreen(true);
+  reloj = new BrowserWindow({width:200, height:115, resizable: false, x: 0, y: 0, frame:false, show: false, alwaysOnTop: true, icon:'./clock-icon.png'})
   win.setMenu(null)
-  win.loadURL('http://192.168.1.18:8080/block')
-
-  reloj = new BrowserWindow({width:170, height:105, resizable: false, x: 0, y: 0, frame:false, show: false, alwaysOnTop: true, icon:'./clock-icon.png'})
-  reloj.setMenu(null)
-  reloj.loadURL(url.format({
-    pathname: path.join(__dirname, 'reloj.html'),
-    protocol: 'file',
-    slashes: true
-  }))
-  win.webContents.openDevTools()
-
+  win.loadURL('http://192.168.1.21:7766/block')
+  //win.webContents.openDevTools()
   win.on('close', function(e){
     e.preventDefault()
   });
 };
 
-exports.controlar = function(){
+exports.controlar = function(id){
   reloj.show();
+  //reloj = new BrowserWindow({width:1000, height:600, resizable: false, x: 0, y: 0, frame:false, show: true, alwaysOnTop: true, icon:'./clock-icon.png'})
+  reloj.setMenu(null)
+  reloj.loadURL('http://192.168.1.21:7766/reloj?id='+id)
   //reloj.webContents.openDevTools()
 };
 
-exports.closeWindow = function(){
+exports.hideReloj = function(){
   reloj.hide();
 };
 
